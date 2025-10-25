@@ -1,0 +1,388 @@
+Chào bạn,
+
+Mình đã đọc rất kỹ đoạn code và yêu cầu của bạn. Code gốc có cấu trúc rất tốt, logic rõ ràng và sử dụng các kỹ thuật vẽ nâng cao của Pillow (gradient, bo góc, đổ bóng), rất phù hợp để tạo một infographic chuyên nghiệp.
+
+Dựa trên nền tảng đó, mình đã cập nhật lại toàn bộ nội dung, bố cục, màu sắc và các prompt tạo ảnh AI để hoàn toàn phù hợp với đề bài mới: **Infographic về Luật Bảo vệ dữ liệu cá nhân 2025**.
+
+Dưới đây là phiên bản code đã được cập nhật hoàn chỉnh.
+
+### **Những thay đổi chính:**
+
+1.  **Chủ đề & Nội dung:** Thay thế toàn bộ nội dung về Quốc khánh 2/9 bằng nội dung chi tiết về Luật Bảo vệ dữ liệu cá nhân bạn đã cung cấp.
+2.  **Prompt Tạo ảnh AI:** Các prompt đã được viết lại hoàn toàn bằng tiếng Việt, tập trung vào các khái niệm pháp lý một cách trực quan, dễ hiểu (ví dụ: icon ổ khóa, icon trẻ em được bảo vệ, icon khiên chắn...).
+3.  **Bố cục (Layout):**
+    *   Thiết kế lại hoàn toàn bố cục để phù hợp với 4 mục nội dung của luật.
+    *   **Phần 1 (Khái niệm):** Dùng các thẻ thông tin (card) trực quan với icon đi kèm.
+    *   **Phần 2 (Quy định nổi bật):** Sử dụng các khối màu sắc mạnh mẽ, tiêu đề lớn để gây ấn tượng thị giác.
+    *   **Phần 3 (Điểm mới):** Bố cục gọn gàng, nhấn mạnh bằng icon bóng đèn.
+    *   **Phần 4 (Quyền & Nghĩa vụ):** Chia 2 cột rõ ràng như yêu cầu của bạn, sử dụng icon tích xanh và khiên.
+4.  **Màu sắc:** Chuyển từ tông màu đỏ-vàng (chủ đề quốc gia) sang tông màu **xanh dương - xanh lá - xám** (chủ đề công nghệ, pháp luật, sự tin cậy) để tạo cảm giác chuyên nghiệp, trang nhã và dễ chịu.
+5.  **Tên hàm và biến:** Đã được đổi lại cho phù hợp với chủ đề mới để code dễ đọc và dễ bảo trì hơn (ví dụ: `create_data_protection_infographic`).
+
+Mời bạn tham khảo và sử dụng đoạn code đã được cập nhật dưới đây.
+
+---
+
+### **CODE ĐÃ CẬP NHẬT**
+
+```python
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
+import json
+import base64
+import requests
+import os
+from io import BytesIO
+import math
+from openai import OpenAI
+
+# --- CẤU HÌNH API (Giữ nguyên) ---
+# Vui lòng thay thế bằng API Key của bạn nếu cần
+API_KEY = "sk-h4_042RMcJD2BNT21ZtkZA" 
+CLIENT = OpenAI(
+            api_key=API_KEY,
+            base_url="https://api.thucchien.ai"
+        )
+
+# --- QUY ĐỊNH ĐỊNH DẠNG (Đã cập nhật theo yêu cầu) ---
+WIDTH = 7874  # 2m @ 100dpi
+HEIGHT = 3937 # 1m @ 100dpi
+DPI = 100
+
+# --- CÁC HÀM TIỆN ÍCH (Giữ nguyên cấu trúc) ---
+
+def generate_image_with_ai_vietnamese(prompt_vietnamese, output_filename):
+    """Hàm tạo ảnh bằng AI với prompt tiếng Việt."""
+    print(f"   ⏳ Đang tạo ảnh cho: {output_filename.split('/')[-1]}...")
+    try:
+        response = CLIENT.images.generate(
+            model="imagen-4",
+            prompt=prompt_vietnamese,
+            n=1,
+            size="1024x1024"  # Sử dụng size vuông cho icon và ảnh minh họa
+        )
+        
+        if response.data and len(response.data) > 0:
+            image_data = response.data[0]
+            img = None
+            if hasattr(image_data, 'b64_json') and image_data.b64_json:
+                img = Image.open(BytesIO(base64.b64decode(image_data.b64_json)))
+            elif hasattr(image_data, 'url') and image_data.url:
+                if image_data.url.startswith('data:image'):
+                    b64_data = image_data.url.split(',')[1]
+                    img = Image.open(BytesIO(base64.b64decode(b64_data)))
+                else:
+                    img_response = requests.get(image_data.url)
+                    img = Image.open(BytesIO(img_response.content))
+            
+            if img:
+                img.save(output_filename)
+                print(f"   ✅ Đã lưu ảnh: {output_filename}")
+                return img
+    except Exception as e:
+        print(f"   ❌ Lỗi khi tạo ảnh: {e}")
+        return None
+    return None
+
+def draw_shadow_box(draw, xy, radius, fill_color, shadow_offset=15, shadow_color='#00000030'):
+    """Vẽ một box có đổ bóng."""
+    x1, y1, x2, y2 = xy
+    shadow_xy = (x1 + shadow_offset, y1 + shadow_offset, x2 + shadow_offset, y2 + shadow_offset)
+    draw_rounded_rectangle(draw, shadow_xy, radius, shadow_color)
+    draw_rounded_rectangle(draw, xy, radius, fill_color)
+
+def draw_rounded_rectangle(draw, xy, radius, fill):
+    """Vẽ hình chữ nhật bo góc."""
+    x1, y1, x2, y2 = xy
+    if radius > (x2 - x1) / 2: radius = (x2 - x1) / 2
+    if radius > (y2 - y1) / 2: radius = (y2 - y1) / 2
+    
+    draw.rectangle([x1 + radius, y1, x2 - radius, y2], fill=fill)
+    draw.rectangle([x1, y1 + radius, x2, y2 - radius], fill=fill)
+    draw.pieslice([x1, y1, x1 + radius * 2, y1 + radius * 2], 180, 270, fill=fill)
+    draw.pieslice([x2 - radius * 2, y1, x2, y1 + radius * 2], 270, 360, fill=fill)
+    draw.pieslice([x1, y2 - radius * 2, x1 + radius * 2, y2], 90, 180, fill=fill)
+    draw.pieslice([x2 - radius * 2, y2 - radius * 2, x2, y2], 0, 90, fill=fill)
+
+def wrap_text(text, font, max_width, draw):
+    """Tự động ngắt dòng cho văn bản."""
+    lines = []
+    if not text: return lines
+    words = text.split()
+    current_line = words[0] if words else ''
+    
+    for word in words[1:]:
+        test_line = current_line + ' ' + word
+        bbox = draw.textbbox((0, 0), test_line, font=font)
+        if bbox[2] - bbox[0] <= max_width:
+            current_line = test_line
+        else:
+            lines.append(current_line)
+            current_line = word
+    lines.append(current_line)
+    return lines
+
+# --- HÀM TẠO INFOGRAPHIC CHÍNH ---
+
+def create_data_protection_infographic():
+    print("=" * 100)
+    print("🌟 BẮT ĐẦU TẠO INFOGRAPHIC: LUẬT BẢO VỆ DỮ LIỆU CÁ NHÂN 2025")
+    print(f"📐 Kích thước: {WIDTH}x{HEIGHT} pixels | DPI: {DPI}")
+    print("=" * 100)
+    
+    # 1. Khởi tạo ảnh và các font chữ
+    img = Image.new('RGB', (WIDTH, HEIGHT), color='#F4F7F9') # Màu nền xám nhạt, trang nhã
+    draw = ImageDraw.Draw(img)
+    
+    try:
+        # Đường dẫn font cho macOS. Nếu dùng Windows/Linux, bạn cần thay đổi.
+        # Ví dụ Windows: "C:/Windows/Fonts/arialbd.ttf"
+        font_path_bold = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
+        font_path_regular = "/System/Library/Fonts/Supplemental/Arial.ttf"
+        
+        title_font = ImageFont.truetype(font_path_bold, 220)
+        subtitle_font = ImageFont.truetype(font_path_regular, 110)
+        header_font = ImageFont.truetype(font_path_bold, 90)
+        body_font = ImageFont.truetype(font_path_regular, 70)
+        small_font = ImageFont.truetype(font_path_regular, 60)
+    except IOError:
+        print("⚠️ Font Arial không tìm thấy. Sử dụng font mặc định.")
+        title_font = ImageFont.load_default()
+        subtitle_font, header_font, body_font, small_font = [title_font] * 4
+
+    # 2. Tạo hình ảnh minh họa bằng AI
+    print("\n📸 Bước 1: Tạo các hình ảnh và icon minh họa bằng AI...")
+    
+    # Thư mục lưu ảnh
+    image_dir = "/Users/macbook/Library/CloudStorage/OneDrive-Personal/AI_ThucChien/luat_bvdl"
+    if not os.path.exists(image_dir):
+        os.makedirs(image_dir)
+
+    images = {}
+    prompts = {
+        "icon_data_concept": "Icon vector tối giản về dữ liệu cá nhân, hình một người được bao quanh bởi các chấm thông tin kỹ thuật số, phong cách phẳng, màu xanh dương và trắng, nền trắng.",
+        "icon_data_types": "Icon vector chia đôi, bên trái là thẻ ID đơn giản, bên phải là ổ khóa trên dấu vân tay, biểu thị dữ liệu cơ bản và nhạy cảm, phong cách phẳng, màu xanh lá và xám, nền trắng.",
+        "icon_data_subject": "Icon vector đơn giản, một người đang mỉm cười và chỉ tay vào chính mình, thân thiện, biểu thị 'chính là bạn', phong cách phẳng, màu xanh dương, nền trắng.",
+        "icon_data_processing": "Icon vector các mũi tên xoay quanh một biểu tượng đám mây dữ liệu, thể hiện thu thập, lưu trữ, sử dụng, xóa bỏ, phong cách phẳng, màu cam, nền trắng.",
+        "img_consent": "Hình ảnh một bàn tay đang nhấn vào nút 'Đồng ý' (Agree) trên màn hình cảm ứng, nút có màu xanh lá cây nổi bật, phông nền công nghệ mờ, ánh sáng rõ ràng, chuyên nghiệp.",
+        "img_illegal_sale": "Hình ảnh một chiếc búa thẩm phán đặt trên một loạt thẻ tín dụng và CMND bị xích lại, mang tính biểu tượng chống lại việc mua bán dữ liệu trái phép, tông màu nghiêm túc, ánh sáng kịch tính.",
+        "img_child_protection": "Hình ảnh một chiếc khiên bảo vệ trong suốt che chắn cho một đứa trẻ đang vui vẻ sử dụng máy tính bảng, biểu tượng cho sự an toàn trên không gian mạng, màu sắc tươi sáng, ấm áp.",
+    }
+
+    for key, prompt in prompts.items():
+        img_file = os.path.join(image_dir, f"{key}.png")
+        if os.path.exists(img_file):
+            print(f"   ♻️  Sử dụng ảnh có sẵn: {key}.png")
+            images[key] = Image.open(img_file)
+        else:
+            generated_img = generate_image_with_ai_vietnamese(prompt, img_file)
+            if generated_img:
+                images[key] = generated_img
+    
+    print("\n🎨 Bước 2: Thiết kế bố cục và vẽ nội dung...")
+
+    # --- A. PHẦN TIÊU ĐỀ ---
+    header_height = 550
+    draw.rectangle([(0, 0), (WIDTH, header_height)], fill='#005A9C') # Màu xanh dương đậm chuyên nghiệp
+    
+    title_text = "DỮ LIỆU CỦA BẠN - QUYỀN CỦA BẠN"
+    bbox = draw.textbbox((0, 0), title_text, font=title_font)
+    draw.text(((WIDTH - (bbox[2]-bbox[0])) / 2, 100), title_text, fill='#FFFFFF', font=title_font)
+    
+    subtitle_text = "Tóm tắt Luật Bảo vệ dữ liệu cá nhân 2025 (Luật số: 91/2025/QH15) dành cho mọi công dân"
+    bbox = draw.textbbox((0, 0), subtitle_text, font=subtitle_font)
+    draw.text(((WIDTH - (bbox[2]-bbox[0])) / 2, 350), subtitle_text, fill='#E0E0E0', font=subtitle_font)
+    
+    y_pos = header_height + 80
+    margin = 150
+
+    # --- B. MỤC 1: KHÁI NIỆM CỐT LÕI ---
+    section_title = "1. KHÁI NIỆM CỐT LÕI AI CŨNG CẦN BIẾT"
+    bbox = draw.textbbox((0, 0), section_title, font=header_font)
+    draw.text((margin, y_pos), section_title, fill='#333333', font=header_font)
+    y_pos += 120
+
+    concepts = [
+        {"key": "icon_data_concept", "title": "Dữ liệu cá nhân là gì?", "desc": "Là mọi thông tin giúp nhận ra bạn là ai (tên, SĐT, email, hình ảnh...)"},
+        {"key": "icon_data_types", "title": "Phân loại dữ liệu", "desc": "Gồm Dữ liệu CƠ BẢN (tên, địa chỉ) và Dữ liệu NHẠY CẢM (sức khỏe, tài chính)."},
+        {"key": "icon_data_subject", "title": "Chủ thể dữ liệu là ai?", "desc": "Chính là BẠN – người sở hữu các dữ liệu cá nhân."},
+        {"key": "icon_data_processing", "title": "Xử lý dữ liệu là gì?", "desc": "Mọi hành động: thu thập, lưu trữ, sử dụng, chia sẻ, hoặc xóa bỏ dữ liệu."},
+    ]
+    
+    card_width = (WIDTH - 2 * margin - 3 * 80) / 4
+    card_height = 500
+    for i, concept in enumerate(concepts):
+        x = margin + i * (card_width + 80)
+        draw_shadow_box(draw, (x, y_pos, x + card_width, y_pos + card_height), 30, '#FFFFFF')
+        
+        if concept["key"] in images:
+            icon = images[concept["key"]].resize((150, 150), Image.Resampling.LANCZOS)
+            img.paste(icon, (int(x + (card_width - 150) / 2), int(y_pos + 40)), icon)
+
+        title_lines = wrap_text(concept["title"], header_font, card_width - 80, draw)
+        text_y = y_pos + 220
+        for line in title_lines:
+            bbox = draw.textbbox((0, 0), line, font=header_font)
+            draw.text((x + (card_width - (bbox[2]-bbox[0])) / 2, text_y), line, fill='#005A9C', font=header_font)
+            text_y += 100
+
+        desc_lines = wrap_text(concept["desc"], body_font, card_width - 80, draw)
+        for line in desc_lines:
+            bbox = draw.textbbox((0, 0), line, font=body_font)
+            draw.text((x + (card_width - (bbox[2]-bbox[0])) / 2, text_y + 20), line, fill='#555555', font=body_font)
+            text_y += 80
+
+    y_pos += card_height + 100
+
+    # --- C. MỤC 2 & 3: QUY ĐỊNH NỔI BẬT & ĐIỂM MỚI ---
+    # Bố cục 2 cột
+    col_width = (WIDTH - 2 * margin - 100) / 2
+    
+    # Cột Trái: Quy định nổi bật
+    x_col1 = margin
+    y_col1 = y_pos
+    
+    section_title_2 = "2. QUY ĐỊNH NỔI BẬT CẦN NHỚ"
+    bbox = draw.textbbox((0, 0), section_title_2, font=header_font)
+    draw.text((x_col1, y_col1), section_title_2, fill='#333333', font=header_font)
+    y_col1 += 120
+
+    regulations = [
+        {"title": "IM LẶNG KHÔNG PHẢI LÀ ĐỒNG Ý!", "desc": "Phải có sự đồng ý TỰ NGUYỆN, RÕ RÀNG của bạn trước khi xử lý dữ liệu.", "color": "#FFF4E5", "border": "#FF9800", "img_key": "img_consent"},
+        {"title": "CẤM MUA, BÁN DỮ LIỆU TRÁI PHÉP", "desc": "Hành vi này sẽ bị xử phạt rất nặng, có thể lên đến 3 tỷ đồng.", "color": "#FFEBEE", "border": "#D32F2F", "img_key": "img_illegal_sale"},
+        {"title": "BẢO VỆ TRẺ EM LÀ ƯU TIÊN", "desc": "Mọi xử lý dữ liệu của trẻ em phải có sự đồng ý của cha mẹ/người giám hộ.", "color": "#E8F5E9", "border": "#388E3C", "img_key": "img_child_protection"},
+    ]
+    
+    for reg in regulations:
+        reg_height = 400
+        draw_shadow_box(draw, (x_col1, y_col1, x_col1 + col_width, y_col1 + reg_height), 30, reg["color"])
+        draw_rounded_rectangle(draw, (x_col1, y_col1, x_col1 + col_width, y_col1 + reg_height), 30, reg["color"])
+        # draw.rectangle((x_col1, y_col1, x_col1 + 20, y_col1 + reg_height), fill=reg["border"])
+        
+        img_size = 250
+        text_x_start = x_col1 + 40
+        text_width = col_width - 80
+        
+        if reg["img_key"] in images:
+            img_size = 280
+            text_width = col_width - img_size - 100
+            text_x_start = x_col1 + img_size + 80
+            
+            reg_img = images[reg["img_key"]].resize((img_size, img_size), Image.Resampling.LANCZOS)
+            mask = Image.new('L', reg_img.size, 0)
+            mask_draw = ImageDraw.Draw(mask)
+            mask_draw.rounded_rectangle((0, 0, reg_img.width, reg_img.height), radius=20, fill=255)
+            img.paste(reg_img, (int(x_col1 + 40), int(y_col1 + (reg_height - img_size) / 2)), mask)
+
+        title_lines = wrap_text(reg["title"], header_font, text_width, draw)
+        text_y = y_col1 + 50
+        for line in title_lines:
+            draw.text((text_x_start, text_y), line, fill=reg["border"], font=header_font)
+            text_y += 100
+
+        desc_lines = wrap_text(reg["desc"], body_font, text_width, draw)
+        for line in desc_lines:
+            draw.text((text_x_start, text_y + 20), line, fill='#333333', font=body_font)
+            text_y += 80
+
+        y_col1 += reg_height + 60
+
+    # Cột Phải: Điểm Mới & Quyền/Nghĩa vụ
+    x_col2 = margin + col_width + 100
+    y_col2 = y_pos
+
+    section_title_3 = "3. ĐIỂM MỚI & LƯU Ý QUAN TRỌNG"
+    bbox = draw.textbbox((0, 0), section_title_3, font=header_font)
+    draw.text((x_col2, y_col2), section_title_3, fill='#333333', font=header_font)
+    y_col2 += 120
+    
+    new_points = [
+        "💡 Thành lập Cơ quan chuyên trách bảo vệ dữ liệu cá nhân.",
+        "💡 Doanh nghiệp phải thông báo trong 72 giờ nếu dữ liệu bị rò rỉ.",
+        "💡 Doanh nghiệp lớn phải đánh giá tác động trước khi xử lý dữ liệu.",
+        "💡 Miễn trừ một số nghĩa vụ cho doanh nghiệp nhỏ và siêu nhỏ trong 5 năm đầu.",
+    ]
+    
+    draw_shadow_box(draw, (x_col2, y_col2, x_col2 + col_width, y_col2 + 450), 30, '#E3F2FD')
+    point_y = y_col2 + 50
+    for point in new_points:
+        lines = wrap_text(point, body_font, col_width - 120, draw)
+        for line in lines:
+            draw.text((x_col2 + 60, point_y), line, fill='#1976D2', font=body_font)
+            point_y += 80
+        point_y += 20
+    
+    y_col2 += 450 + 80
+    
+    # --- D. MỤC 4: QUYỀN & NGHĨA VỤ ---
+    section_title_4 = "4. QUYỀN & NGHĨA VỤ CỦA BẠN"
+    bbox = draw.textbbox((0, 0), section_title_4, font=header_font)
+    draw.text((x_col2, y_col2), section_title_4, fill='#333333', font=header_font)
+    y_col2 += 120
+    
+    sub_col_width = (col_width - 40) / 2
+    
+    # Quyền
+    draw.text((x_col2, y_col2), "QUYỀN CỦA BẠN", fill='#2E7D32', font=header_font)
+    rights = [
+        "✓ Được biết ai, vì sao xử lý dữ liệu của mình.",
+        "✓ Đồng ý hoặc từ chối việc xử lý.",
+        "✓ Truy cập, chỉnh sửa dữ liệu.",
+        "✓ Rút lại sự đồng ý bất cứ lúc nào.",
+        "✓ Yêu cầu xóa dữ liệu.",
+        "✓ Khiếu nại và đòi bồi thường.",
+    ]
+    rights_y = y_col2 + 120
+    for right in rights:
+        lines = wrap_text(right, body_font, sub_col_width - 20, draw)
+        for line in lines:
+            draw.text((x_col2, rights_y), line, fill='#333333', font=body_font)
+            rights_y += 75
+
+    # Nghĩa vụ
+    draw.text((x_col2 + sub_col_width + 40, y_col2), "TRÁCH NHIỆM CỦA BẠN", fill='#C62828', font=header_font)
+    duties = [
+        "🛡️ Tự bảo vệ dữ liệu của mình.",
+        "🛡️ Tôn trọng dữ liệu người khác.",
+        "🛡️ Cung cấp thông tin chính xác.",
+        "🛡️ Tuân thủ pháp luật.",
+    ]
+    duties_y = y_col2 + 120
+    for duty in duties:
+        lines = wrap_text(duty, body_font, sub_col_width - 20, draw)
+        for line in lines:
+            draw.text((x_col2 + sub_col_width + 40, duties_y), line, fill='#333333', font=body_font)
+            duties_y += 75
+
+    # --- E. PHẦN CHÂN TRANG (FOOTER) ---
+    footer_y = HEIGHT - 250
+    draw.rectangle([(0, footer_y), (WIDTH, HEIGHT)], fill='#34495E')
+    
+    footer_text_1 = "HÃY LÀ NGƯỜI CHỦ THÔNG THÁI CHO DỮ LIỆU CỦA CHÍNH MÌNH!"
+    bbox = draw.textbbox((0, 0), footer_text_1, font=header_font)
+    draw.text(((WIDTH - (bbox[2]-bbox[0])) / 2, footer_y + 60), footer_text_1, fill='#FFFFFF', font=header_font)
+    
+    footer_text_2 = "Nội dung được tóm tắt từ Luật số 91/2025/QH15. Để biết chi tiết, vui lòng tham khảo văn bản luật gốc."
+    bbox = draw.textbbox((0, 0), footer_text_2, font=small_font)
+    draw.text(((WIDTH - (bbox[2]-bbox[0])) / 2, footer_y + 160), footer_text_2, fill='#BDC3C7', font=small_font)
+
+    # 3. Lưu ảnh
+    print("\n💾 Bước 3: Lưu file infographic...")
+    
+    output_filename_base = os.path.join(image_dir, "Infographic_LuatBaoVeDuLieuCaNhan_2025")
+    
+    output_png = f"{output_filename_base}.png"
+    img.save(output_png, 'PNG', dpi=(DPI, DPI))
+    print(f"✅ Đã lưu PNG: {output_png}")
+    
+    output_jpg = f"{output_filename_base}.jpg"
+    # Chuyển sang RGB trước khi lưu JPEG để tránh lỗi
+    img_rgb = img.convert('RGB')
+    img_rgb.save(output_jpg, 'JPEG', dpi=(DPI, DPI), quality=95)
+    print(f"✅ Đã lưu JPG: {output_jpg}")
+    
+    print("\n🎉 HOÀN THÀNH!")
+    return output_png
+
+if __name__ == "__main__":
+    create_data_protection_infographic()
+```

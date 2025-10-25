@@ -1,0 +1,538 @@
+Dưới đây là đoạn code của mình để gen infographic cho chủ đề 80 năm Quốc khánh 2/9. Hãy đọc kỹ toàn bộ code để hiểu sâu nhất nội dung của code. Sau đó, hãy cập nhật lại nội dung prompt sao cho phù hợp với đề bài sau: ``` Tạo 01 infographic (bản đồ họa thông tin) dạng một trang duy nhất, nội dung hướng dẫn/tóm tắt Luật Bảo vệ dữ liệu cá nhân 2025 ( Luật số: 91/2025/QH15)
+Infographic truyền đạt các thông tin chính: khái niệm, quy định nổi bật, điểm mới hoặc lưu ý quan trọng, quyền/nghĩa vụ liên quan, ví dụ minh họa dễ nhớ.
+Tác phẩm nên rõ ràng, ngắn gọn, dễ hiểu cho người dân tất cả lứa tuổi, đặc biệt đối tượng tiếp xúc pháp luật hạn chế.
+Sản phẩm là hoàn toàn sáng tạo mới với AI thông qua AI API được cung cấp, đáp ứng đủ yêu cầu của đề, phù hợp quy định pháp lý và giáo dục, không cover hay sáng tác từ một Truyện có sẵn
+Ngôn ngữ: tiếng Việt
+ 
+Đầu ra - Quy định định dạng:
+Kích thước infographic: 2m (ngang) x 1m (cao) (kích thước khi in)  — Kích thước chuẩn in lớn: 7874 x 3937 pixel (độ phân giải tối thiểu 100dpi; khuyến nghị 150–200dpi).
+Định dạng tệp xuất bản: PNG/JPG, đủ chất lượng in chuẩn treo ngoài trời theo kích thước ở trên. ``` Nội dung của luật (đã được mình chọn lọc): ``` ### **NỘI DUNG INFOGRAPHIC: LUẬT BẢO VỆ DỮ LIỆU CÁ NHÂN 2025**
+
+**Tiêu đề chính (Nổi bật, ở trung tâm hoặc trên cùng):**
+### **DỮ LIỆU CỦA BẠN - QUYỀN CỦA BẠN**
+**Luật Bảo vệ dữ liệu cá nhân 2025: Những điều mọi công dân cần biết!**
+*(Có hiệu lực từ ngày 01/01/2026)*
+
+---
+
+### **Mục 1: KHÁI NIỆM CỐT LÕI (Dành cho người mới bắt đầu)**
+
+*(Khu vực này nên có các icon minh họa đơn giản cho mỗi khái niệm)*
+
+*   **Dữ liệu cá nhân là gì?**
+    *   Là mọi thông tin giúp nhận ra bạn là ai.
+    *   Ví dụ: Họ tên, ngày sinh, số điện thoại, email, hình ảnh, thông tin tài khoản ngân hàng...
+    *   *(Icon: Hình một người với các chấm thông tin xung quanh)*
+
+*   **Phân loại dữ liệu cá nhân:**
+    1.  **Dữ liệu CƠ BẢN:** Thông tin nhận dạng phổ biến (họ tên, địa chỉ, số CCCD...).
+    2.  **Dữ liệu NHẠY CẢM:** Thông tin riêng tư, cần bảo vệ đặc biệt (sức khỏe, tôn giáo, tài chính, xu hướng tình dục, dữ liệu sinh trắc học...).
+    *   *(Icon: Thẻ ID cho "Cơ bản", icon ổ khóa hoặc dấu vân tay cho "Nhạy cảm")*
+
+*   **Chủ thể dữ liệu là ai?**
+    *   Chính là **BẠN** – người mà các dữ liệu trên phản ánh.
+    *   *(Icon: Hình người được chỉ vào một cách thân thiện)*
+
+*   **Xử lý dữ liệu là gì?**
+    *   Là mọi hành động tác động đến dữ liệu của bạn.
+    *   Bao gồm: Thu thập, lưu trữ, sử dụng, chia sẻ, hoặc xóa bỏ.
+    *   *(Icon: Các mũi tên xoay vòng quanh một biểu tượng dữ liệu)*
+
+---
+
+### **Mục 2: QUY ĐỊNH NỔI BẬT AI CŨNG CẦN NHỚ**
+
+*(Khu vực này nên dùng các tiêu đề lớn, in đậm và màu sắc mạnh mẽ để thu hút sự chú ý)*
+
+1.  **IM LẶNG KHÔNG PHẢI LÀ ĐỒNG Ý! (Điều 9)**
+    *   Mọi tổ chức/cá nhân phải có được sự đồng ý **TỰ NGUYỆN, RÕ RÀNG** của bạn trước khi xử lý dữ liệu.
+    *   Bạn phải được biết rõ: Dữ liệu nào bị thu thập? Dùng để làm gì? Ai thu thập?
+
+2.  **NGHIÊM CẤM MUA, BÁN DỮ LIỆU CÁ NHÂN TRÁI PHÉP (Điều 7)**
+    *   Hành vi mua bán dữ liệu cá nhân sẽ bị xử phạt rất nặng, có thể lên đến **10 lần khoản thu bất chính** hoặc **3 tỷ đồng**. (Điều 8)
+
+3.  **BẢO VỆ TRẺ EM LÀ ƯU TIÊN HÀNG ĐẦU (Điều 24)**
+    *   Mọi hoạt động xử lý dữ liệu của trẻ em phải có sự đồng ý của cha mẹ hoặc người giám hộ.
+    *   Với trẻ từ 7 tuổi trở lên, cần có sự đồng ý của cả trẻ và người đại diện khi công khai thông tin riêng tư.
+
+4.  **QUẢNG CÁO & MẠNG XÃ HỘI PHẢI MINH BẠCH (Điều 28, 29)**
+    *   Bạn có quyền **từ chối nhận quảng cáo** bất cứ lúc nào.
+    *   Mạng xã hội **không được yêu cầu ảnh giấy tờ tùy thân** để xác thực tài khoản.
+    *   Phải cung cấp tùy chọn "không theo dõi" và minh bạch về việc thu thập dữ liệu (cookies).
+
+5.  **CHUYỂN DỮ LIỆU RA NƯỚC NGOÀI BỊ KIỂM SOÁT CHẶT (Điều 20)**
+    *   Việc các công ty (kể cả Facebook, Google...) chuyển dữ liệu của công dân Việt Nam ra máy chủ nước ngoài phải tuân thủ quy định nghiêm ngặt và báo cáo cho cơ quan chức năng.
+
+---
+
+### **Mục 3: ĐIỂM MỚI & LƯU Ý QUAN TRỌNG**
+
+*(Khu vực này có thể dùng icon bóng đèn hoặc dấu chấm than để nhấn mạnh)*
+
+*   **Thành lập Cơ quan chuyên trách bảo vệ dữ liệu cá nhân (Điều 33)**
+    *   Đây là đơn vị thuộc Bộ Công an, là đầu mối tiếp nhận khiếu nại và xử lý vi phạm. Giờ đây bạn đã có một địa chỉ cụ thể để bảo vệ mình.
+
+*   **Trách nhiệm thông báo khi có sự cố (Điều 23)**
+    *   Nếu dữ liệu của bạn bị rò rỉ, các công ty, tổ chức phải thông báo cho cơ quan chức năng trong vòng **72 giờ**.
+
+*   **Doanh nghiệp phải đánh giá rủi ro (Điều 21)**
+    *   Các doanh nghiệp lớn phải lập "Hồ sơ đánh giá tác động" để lường trước và ngăn chặn các rủi ro đối với dữ liệu của bạn trước khi xử lý.
+
+*   **Miễn trừ cho Doanh nghiệp nhỏ, siêu nhỏ (Điều 38)**
+    *   Hộ kinh doanh, doanh nghiệp siêu nhỏ, và doanh nghiệp nhỏ/startup được miễn trừ một số nghĩa vụ phức tạp trong 5 năm đầu (trừ khi họ kinh doanh dịch vụ xử lý dữ liệu). Điều này nhằm tạo điều kiện phát triển.
+
+---
+
+### **Mục 4: QUYỀN & NGHĨA VỤ CỦA BẠN**
+
+*(Khu vực này nên được chia làm 2 cột rõ ràng: "Quyền của bạn" và "Trách nhiệm của bạn", dùng icon tích xanh (✓) cho quyền và icon tấm khiên (🛡️) cho nghĩa vụ)*
+
+#### **QUYỀN CỦA BẠN (Điều 4)**
+
+*   **✓ Quyền ĐƯỢC BIẾT:** Biết ai, tại sao và làm thế nào dữ liệu của bạn đang được xử lý.
+*   **✓ Quyền ĐỒNG Ý:** Cho phép hoặc từ chối việc xử lý dữ liệu của mình.
+*   **✓ Quyền TRUY CẬP & CHỈNH SỬA:** Xem lại thông tin của mình và yêu cầu sửa cho đúng.
+*   **✓ Quyền RÚT LẠI SỰ ĐỒNG Ý:** Thay đổi quyết định và yêu cầu dừng xử lý dữ liệu bất kỳ lúc nào.
+*   **✓ Quyền YÊU CẦU XÓA DỮ LIỆU:** Yêu cầu xóa thông tin của bạn khi không còn cần thiết.
+*   **✓ Quyền KHIẾU NẠI & ĐÒI BỒI THƯỜNG:** Khiếu nại, khởi kiện và yêu cầu bồi thường nếu quyền của bạn bị xâm phạm.
+
+#### **TRÁCH NHIỆM CỦA BẠN (Điều 4)**
+
+*   **🛡️ Tự bảo vệ dữ liệu của mình:** Cẩn trọng khi chia sẻ thông tin, sử dụng mật khẩu mạnh.
+*   **🛡️ Tôn trọng dữ liệu của người khác:** Không tự ý chia sẻ thông tin cá nhân của người khác khi chưa được phép.
+*   **🛡️ Cung cấp thông tin chính xác:** Khi giao dịch hoặc theo yêu cầu của pháp luật.
+*   **🛡️ Tuân thủ pháp luật:** Cùng chung tay xây dựng một môi trường số an toàn.
+
+---
+
+**Lời kết (Phần chân của infographic):**
+**HÃY LÀ NGƯỜI CHỦ THÔNG THÁI CHO DỮ LIỆU CỦA CHÍNH MÌNH!**
+*Nội dung được diễn giải ngắn gọn, dễ hiểu từ 
+Luật số 91/2025/QH15. Để biết chi tiết, vui lòng tham khảo văn bản luật gốc.*
+
+```
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
+import json
+import base64
+import requests
+import os
+from io import BytesIO
+import math
+from openai import OpenAI
+
+API_KEY = "sk-h4_042RMcJD2BNT21ZtkZA"
+CLIENT = OpenAI(
+            api_key=API_KEY,
+            base_url="https://api.thucchien.ai"
+        )
+
+WIDTH = 7874
+HEIGHT = 3937
+DPI = 100
+
+def generate_image_with_gemini_vietnamese(prompt_vietnamese, output_filename, aspect_ratio="16:9"):
+    response = CLIENT.images.generate(
+                model="imagen-4",
+                prompt=prompt_vietnamese,
+                n=1,
+                size="1024x1536"  # A4 vertical ratio
+            )
+            
+    if response.data and len(response.data) > 0:
+        image_data = response.data[0]
+        if hasattr(image_data, 'b64_json') and image_data.b64_json:
+            return Image.open(BytesIO(base64.b64decode(image_data.b64_json)))
+        elif hasattr(image_data, 'url') and image_data.url:
+            if image_data.url.startswith('data:image'):
+                b64_data = image_data.url.split(',')[1]
+                img = Image.open(BytesIO(base64.b64decode(b64_data)))
+            else:
+                img_response = requests.get(image_data.url)
+                img = Image.open(BytesIO(img_response.content))
+        img.save(output_filename)
+
+def draw_shadow_box(draw, xy, radius, fill_color, shadow_offset=10):
+    x1, y1, x2, y2 = xy
+    
+    shadow_xy = (x1 + shadow_offset, y1 + shadow_offset, x2 + shadow_offset, y2 + shadow_offset)
+    draw_rounded_rectangle(draw, shadow_xy, radius, '#00000030')
+    
+    draw_rounded_rectangle(draw, xy, radius, fill_color)
+
+def draw_rounded_rectangle(draw, xy, radius, fill):
+    x1, y1, x2, y2 = xy
+    draw.rectangle([x1 + radius, y1, x2 - radius, y2], fill=fill)
+    draw.rectangle([x1, y1 + radius, x2, y2 - radius], fill=fill)
+    draw.pieslice([x1, y1, x1 + radius * 2, y1 + radius * 2], 180, 270, fill=fill)
+    draw.pieslice([x2 - radius * 2, y1, x2, y1 + radius * 2], 270, 360, fill=fill)
+    draw.pieslice([x1, y2 - radius * 2, x1 + radius * 2, y2], 90, 180, fill=fill)
+    draw.pieslice([x2 - radius * 2, y2 - radius * 2, x2, y2], 0, 90, fill=fill)
+
+def draw_decorative_border(draw, xy, width, color):
+    x1, y1, x2, y2 = xy
+    for i in range(width):
+        draw.rectangle([x1 + i, y1 + i, x2 - i, y2 - i], outline=color, width=1)
+
+def wrap_text(text, font, max_width, draw):
+    lines = []
+    words = text.split()
+    current_line = []
+    
+    for word in words:
+        test_line = ' '.join(current_line + [word])
+        bbox = draw.textbbox((0, 0), test_line, font=font)
+        width = bbox[2] - bbox[0]
+        
+        if width <= max_width:
+            current_line.append(word)
+        else:
+            if current_line:
+                lines.append(' '.join(current_line))
+            current_line = [word]
+    
+    if current_line:
+        lines.append(' '.join(current_line))
+    
+    return lines
+
+def create_ultra_premium_infographic():
+    print("=" * 100)
+    print("🌟 TẠO INFOGRAPHIC ULTRA PREMIUM - BỐ CỤC CHUYÊN NGHIỆP")
+    print("🇻🇳 Sử dụng PROMPT TIẾNG VIỆT cho Gemini Imagen-4")
+    print("=" * 100)
+    print()
+    
+    img = Image.new('RGB', (WIDTH, HEIGHT), color='#FFFFFF')
+    draw = ImageDraw.Draw(img)
+    
+    try:
+        title_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 240)
+        subtitle_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 130)
+        header_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 95)
+        body_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 72)
+        small_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 62)
+        stat_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 140)
+        label_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 70)
+    except:
+        print("⚠️ Không tìm thấy font")
+        title_font = ImageFont.load_default()
+        subtitle_font = header_font = body_font = small_font = stat_font = label_font = title_font
+    
+    print("📸 Bước 1: Tạo hình ảnh với prompt TIẾNG VIỆT...")
+    print()
+    
+    images = {}
+    prompts_tieng_viet = {
+        "dieu_binh": "Lễ diễu binh quốc khánh Việt Nam tại Quảng trường Ba Đình, Hà Nội, góc nhìn từ trên cao, hàng nghìn chiến sĩ xếp hàng ngay ngắn, cờ đỏ sao vàng, lễ kỷ niệm trọng đại, chân thực, nhiếp ảnh chuyên nghiệp, tỷ lệ 16:9",
+        "van_hoa": "Biểu diễn văn hóa truyền thống Việt Nam, các nghệ sĩ mặc áo dài rực rỡ, sân khấu đầy màu sắc, đèn lồng, không khí lễ hội, kỷ niệm quốc khánh, chân thực, nhiếp ảnh sự kiện chuyên nghiệp, 16:9",
+        "quoc_te": "Lễ kỷ niệm của người Việt Nam ở nước ngoài, mọi người vẫy cờ Việt Nam, tình hữu nghị quốc tế, sự kiện ngoại giao, tòa nhà hiện đại, chân thực, 16:9",
+        "thien_nguyen": "Tình nguyện viên Việt Nam giúp đỡ cựu chiến binh cao tuổi, khoảnh khắc cảm động, lòng biết ơn, hoạt động cộng đồng, ánh sáng ấm áp, chân thực, phong cách phóng sự, 16:9",
+        "broadcast": "Studio truyền hình Việt Nam, phóng viên chuyên nghiệp, thiết bị hiện đại, đài truyền hình quốc gia VTV, chân thực, nhiếp ảnh chuyên nghiệp, 16:9"
+    }
+    
+    for key, prompt in prompts_tieng_viet.items():
+        img_file = f"/Users/macbook/Library/CloudStorage/OneDrive-Personal/AI_ThucChien/ultra_ai_{key}.png"
+        
+        if os.path.exists(img_file):
+            print(f"   ♻️  Sử dụng ảnh có sẵn: {key}")
+            images[key] = Image.open(img_file)
+        else:
+            generated_img = generate_image_with_gemini_vietnamese(prompt, img_file)
+            if generated_img:
+                images[key] = generated_img
+        
+        if key not in images:
+            old_file = f"/Users/macbook/Library/CloudStorage/OneDrive-Personal/AI_ThucChien/ai_image_{key}.png"
+            if os.path.exists(old_file):
+                print(f"   ♻️  Dùng ảnh cũ: {key}")
+                images[key] = Image.open(old_file)
+        print()
+    
+    print("🎨 Bước 2: Thiết kế layout ULTRA PREMIUM...")
+    print()
+    
+    for i in range(0, HEIGHT, 200):
+        ratio = i / HEIGHT
+        r = int(245 + (255 - 245) * ratio)
+        g = int(248 + (255 - 248) * ratio)
+        b = int(250 + (255 - 250) * ratio)
+        draw.rectangle([(0, i), (WIDTH, i + 200)], fill=(r, g, b))
+    
+    y_pos = 120
+    header_height = 700
+    
+    header_gradient = Image.new('RGB', (WIDTH, header_height), '#DA251D')
+    header_draw = ImageDraw.Draw(header_gradient)
+    for i in range(header_height):
+        ratio = i / header_height
+        r = int(218 - (218 - 180) * ratio)
+        g = int(37 - (37 - 25) * ratio)
+        b = int(29 - (29 - 20) * ratio)
+        header_draw.line([(0, i), (WIDTH, i)], fill=(r, g, b))
+    
+    img.paste(header_gradient, (0, y_pos))
+    
+    draw.rectangle([(0, y_pos + header_height), (WIDTH, y_pos + header_height + 80)], fill='#FFCD00')
+    
+    star_positions = []
+    for i in range(7):
+        x = WIDTH // 8 * (i + 1)
+        y = y_pos + 350
+        star_positions.append((x, y))
+    
+    for sx, sy in star_positions:
+        points = []
+        for i in range(5):
+            angle = i * 144 - 90
+            x = sx + math.cos(math.radians(angle)) * 85
+            y = sy + math.sin(math.radians(angle)) * 85
+            points.append((x, y))
+        draw.polygon(points, fill='#FFCD00', outline='#FFFFFF', width=3)
+    
+    title_text = "KỶ NIỆM 80 NĂM QUỐC KHÁNH"
+    bbox = draw.textbbox((0, 0), title_text, font=title_font)
+    title_width = bbox[2] - bbox[0]
+    
+    for offset in [(4, 4), (-4, -4), (4, -4), (-4, 4)]:
+        draw.text(((WIDTH - title_width) // 2 + offset[0], y_pos + 180 + offset[1]), 
+                 title_text, fill='#FFFFFF', font=title_font)
+    draw.text(((WIDTH - title_width) // 2, y_pos + 180), title_text, 
+              fill='#FFCD00', font=title_font)
+    
+    subtitle_text = "2/9/1945 - 2/9/2025: Tám Mươi Năm Vẻ Vang"
+    bbox = draw.textbbox((0, 0), subtitle_text, font=subtitle_font)
+    subtitle_width = bbox[2] - bbox[0]
+    draw.text(((WIDTH - subtitle_width) // 2, y_pos + 480), subtitle_text, 
+              fill='#FFFFFF', font=subtitle_font, stroke_width=2, stroke_fill='#FFCD00')
+    
+    y_pos = 1000
+    margin = 200
+    
+    intro_box_height = 280
+    draw_shadow_box(draw, (margin, y_pos, WIDTH - margin, y_pos + intro_box_height), 
+                   40, '#F8F9FA', shadow_offset=15)
+    
+    draw_decorative_border(draw, (margin, y_pos, WIDTH - margin, y_pos + intro_box_height), 
+                          3, '#DA251D')
+    
+    intro_text = "Ngày 2 tháng 9 năm 1945 đánh dấu mốc son chói lọi trong lịch sử dân tộc Việt Nam khi Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập, khai sinh nước Việt Nam Dân chủ Cộng hòa. Trải qua 80 năm xây dựng và phát triển, đất nước ta đã vượt qua muôn vàn thử thách, giành được những thắng lợi vĩ đại."
+    intro_lines = wrap_text(intro_text, body_font, WIDTH - 2 * margin - 150, draw)
+    intro_y = y_pos + 70
+    for line in intro_lines:
+        draw.text((margin + 75, intro_y), line, fill='#2C3E50', font=body_font)
+        intro_y += 85
+    
+    y_pos += intro_box_height + 100
+    
+    sections = [
+        {
+            "title": "🏛️ LỄ DIỄU BINH TRỌNG ĐẠI",
+            "subtitle": "Quảng trường Ba Đình, Hà Nội",
+            "content": "Sáng ngày 2/9/2025, Lễ kỷ niệm và diễu binh diễn ra tại Quảng trường Ba Đình với sự tham gia của hơn 100.000 người dân, cán bộ, chiến sĩ và đại biểu quốc tế. Các lực lượng vũ trang trình diễn khí tài hiện đại, thể hiện sức mạnh quốc phòng.",
+            "image_key": "dieu_binh",
+            "color": "#0066CC",
+            "accent": "#004C99"
+        },
+        {
+            "title": "📺 CHƯƠNG TRÌNH ĐẶC BIỆT VOV",
+            "subtitle": "80 Giờ Hành Trình Vĩ Đại",
+            "content": "Đài Tiếng nói Việt Nam thực hiện chương trình chính luận đặc biệt kéo dài 80 giờ liên tục, tái hiện từng chặng đường lịch sử hào hùng qua lời kể, tư liệu quý và phỏng vấn các nhân chứng lịch sử.",
+            "image_key": "broadcast",
+            "color": "#00994D",
+            "accent": "#006633"
+        },
+        {
+            "title": "🎭 VĂN HÓA NGHỆ THUẬT",
+            "subtitle": "Trên Cả Nước",
+            "content": "Hàng trăm chương trình văn hóa nghệ thuật phong phú diễn ra: triển lãm ảnh và hiện vật lịch sử, biểu diễn ca nhạc dân tộc, múa hát truyền thống, lễ hội văn hóa. Các di tích được tôn tạo, chiếu sáng đặc biệt.",
+            "image_key": "van_hoa",
+            "color": "#9933CC",
+            "accent": "#662299"
+        },
+        {
+            "title": "🌏 LAN TỎA QUỐC TẾ",
+            "subtitle": "Người Việt Năm Châu",
+            "content": "Các cơ quan đại diện Việt Nam tại hơn 100 quốc gia tổ chức hoạt động kỷ niệm đa dạng: giao lưu văn hóa, triển lãm ảnh, hội thảo quốc tế, gặp gỡ cộng đồng người Việt Nam ở nước ngoài.",
+            "image_key": "quoc_te",
+            "color": "#FF6600",
+            "accent": "#CC5200"
+        },
+        {
+            "title": "❤️ UỐNG NƯỚC NHỚ NGUỒN",
+            "subtitle": "Tri Ân Công Ơn",
+            "content": "Hàng nghìn hoạt động tri ân các gia đình liệt sĩ, thương binh, người có công: tặng quà, sửa chữa nhà tình nghĩa, khám bệnh miễn phí. Phong trào thể hiện truyền thống 'Đền ơn đáp nghĩa' của dân tộc.",
+            "image_key": "thien_nguyen",
+            "color": "#CC0066",
+            "accent": "#990044"
+        }
+    ]
+    
+    cols = 2
+    section_width = (WIDTH - 3 * margin) // cols
+    section_height = 550
+    
+    for idx, section in enumerate(sections):
+        row = idx // cols
+        col = idx % cols
+        
+        x_start = margin + col * (section_width + margin)
+        y_start = y_pos + row * (section_height + 80)
+        
+        draw_shadow_box(draw, (x_start, y_start, x_start + section_width, y_start + section_height),
+                       35, section["color"], shadow_offset=12)
+        
+        draw.rectangle([(x_start, y_start), (x_start + section_width, y_start + 120)],
+                      fill=section["accent"])
+        
+        draw.text((x_start + 60, y_start + 30), section["title"], 
+                 fill='#FFFFFF', font=header_font)
+        
+        draw.text((x_start + 60, y_start + 150), section["subtitle"], 
+                 fill='#FFCD00', font=small_font, stroke_width=1, stroke_fill='#FFFFFF')
+        
+        if section["image_key"] in images:
+            img_obj = images[section["image_key"]]
+            img_resized = img_obj.resize((section_width - 120, 280), Image.Resampling.LANCZOS)
+            
+            mask = Image.new('L', img_resized.size, 0)
+            mask_draw = ImageDraw.Draw(mask)
+            mask_draw.rounded_rectangle([(0, 0), img_resized.size], radius=15, fill=255)
+            
+            img.paste(img_resized, (x_start + 60, y_start + 210), mask)
+        
+    total_rows = (len(sections) + cols - 1) // cols
+    stats_y = y_pos + total_rows * (section_height + 80) + 100
+    
+    stats_height = 950
+    stats_bg = Image.new('RGB', (WIDTH, stats_height), '#F0F4F8')
+    stats_draw = ImageDraw.Draw(stats_bg)
+    for i in range(stats_height):
+        ratio = i / stats_height
+        r = int(240 + (230 - 240) * ratio)
+        g = int(244 + (238 - 244) * ratio)
+        b = int(248 + (245 - 248) * ratio)
+        stats_draw.line([(0, i), (WIDTH, i)], fill=(r, g, b))
+    
+    img.paste(stats_bg, (0, stats_y))
+    
+    stats_title = "📊 THỐNG KÊ NỔI BẬT"
+    bbox = draw.textbbox((0, 0), stats_title, font=subtitle_font)
+    stats_title_width = bbox[2] - bbox[0]
+    
+    title_box_width = stats_title_width + 200
+    title_box_x1 = (WIDTH - title_box_width) // 2
+    title_box_y1 = stats_y + 70
+    
+    draw_shadow_box(draw, (title_box_x1, title_box_y1, title_box_x1 + title_box_width, 
+                          title_box_y1 + 150), 40, '#DA251D', shadow_offset=10)
+    
+    draw.text(((WIDTH - stats_title_width) // 2, stats_y + 100), stats_title, 
+             fill='#FFFFFF', font=subtitle_font)
+    
+    stats_data = [
+        {"number": "63/63", "label": "Tỉnh thành", "detail": "Tổ chức kỷ niệm", "icon": "🏙️"},
+        {"number": "100K+", "label": "Người tham dự", "detail": "Lễ diễu binh", "icon": "👥"},
+        {"number": "500+", "label": "Sự kiện", "detail": "Văn hóa nghệ thuật", "icon": "🎭"},
+        {"number": "80h", "label": "Chương trình", "detail": "Đặc biệt VOV", "icon": "📻"},
+        {"number": "100+", "label": "Quốc gia", "detail": "Hoạt động kỷ niệm", "icon": "🌍"},
+        {"number": "10M+", "label": "Lượt xem", "detail": "Trực tuyến", "icon": "📱"}
+    ]
+    
+    stat_cols = 3
+    stat_rows = 2
+    stat_width = (WIDTH - 2 * margin) // stat_cols
+    stat_y_start = stats_y + 320
+    
+    for idx, stat in enumerate(stats_data):
+        row = idx // stat_cols
+        col = idx % stat_cols
+        x_center = margin + col * stat_width + stat_width // 2
+        y_center = stat_y_start + row * 300
+        
+        box_size = 210
+        
+        draw.ellipse([x_center - box_size - 5, y_center - box_size - 5, 
+                     x_center + box_size + 5, y_center + box_size + 5], 
+                    fill='#00000020')
+        
+        draw.ellipse([x_center - box_size, y_center - box_size, 
+                     x_center + box_size, y_center + box_size], 
+                    fill='#DA251D', outline='#FFCD00', width=8)
+        
+        num_bbox = draw.textbbox((0, 0), stat["number"], font=stat_font)
+        num_width = num_bbox[2] - num_bbox[0]
+        num_height = num_bbox[3] - num_bbox[1]
+        draw.text((x_center - num_width // 2, y_center - num_height // 2 - 20), 
+                 stat["number"], fill='#FFFFFF', font=stat_font)
+        
+        label_bbox = draw.textbbox((0, 0), stat["label"], font=label_font)
+        label_width = label_bbox[2] - label_bbox[0]
+        draw.text((x_center - label_width // 2, y_center + 230), 
+                 stat["label"], fill='#DA251D', font=label_font)
+        
+        detail_bbox = draw.textbbox((0, 0), stat["detail"], font=small_font)
+        detail_width = detail_bbox[2] - detail_bbox[0]
+        draw.text((x_center - detail_width // 2, y_center + 310), 
+                 stat["detail"], fill='#5D6D7E', font=small_font)
+    
+    footer_y = HEIGHT - 280
+    
+    footer_gradient = Image.new('RGB', (WIDTH, 280), '#2C3E50')
+    footer_draw = ImageDraw.Draw(footer_gradient)
+    for i in range(280):
+        ratio = i / 280
+        r = int(44 + (34 - 44) * ratio)
+        g = int(62 + (52 - 62) * ratio)
+        b = int(80 + (70 - 80) * ratio)
+        footer_draw.line([(0, i), (WIDTH, i)], fill=(r, g, b))
+    
+    img.paste(footer_gradient, (0, footer_y))
+    
+    footer_text = "Nguồn: Báo Đảng Cộng Sản Việt Nam | Báo Chính Phủ | Đài Truyền hình Việt Nam"
+    bbox = draw.textbbox((0, 0), footer_text, font=body_font)
+    footer_width = bbox[2] - bbox[0]
+    draw.text(((WIDTH - footer_width) // 2, footer_y + 60), footer_text, 
+             fill='#ECF0F1', font=body_font)
+    
+    copyright_text = "Kỷ niệm 80 năm Quốc khánh 2/9 (1945-2025) | Tạo bởi AI Gemini Imagen-4 với prompt Tiếng Việt"
+    bbox = draw.textbbox((0, 0), copyright_text, font=small_font)
+    copyright_width = bbox[2] - bbox[0]
+    draw.text(((WIDTH - copyright_width) // 2, footer_y + 160), copyright_text, 
+             fill='#95A5A6', font=small_font)
+    
+    print("💾 Bước 3: Lưu file...")
+    
+    output_png = "/Users/macbook/Library/CloudStorage/OneDrive-Personal/AI_ThucChien/infographic_ultra_premium_final.png"
+    img.save(output_png, 'PNG', dpi=(DPI, DPI))
+    print(f"✅ Đã lưu PNG: {output_png}")
+    
+    output_jpg = output_png.replace('.png', '.jpg')
+    img.save(output_jpg, 'JPEG', dpi=(DPI, DPI), quality=95)
+    print(f"✅ Đã lưu JPG: {output_jpg}")
+    
+    print()
+    print(f"📏 Kích thước: {WIDTH}x{HEIGHT} pixels")
+    print(f"🎯 DPI: {DPI}")
+    print(f"📐 Kích thước in: 2m x 1m ✅")
+    print()
+    
+    return output_png
+
+if __name__ == "__main__":
+    print()
+    print("=" * 100)
+    print("🇻🇳 CUỘC THI AI THỰC CHIẾN - ĐỀ BÀI SỐ 3 (ULTRA PREMIUM)")
+    print("🎯 Infographic với prompt TIẾNG VIỆT và bố cục CHUYÊN NGHIỆP")
+    print("=" * 100)
+    print()
+    
+    create_ultra_premium_infographic()
+    
+    print()
+    print("=" * 100)
+    print("✨ HOÀN THÀNH INFOGRAPHIC ULTRA PREMIUM!")
+    print("🎉 Bố cục 2 cột, shadows, decorative borders, prompt tiếng Việt!")
+    print("=" * 100)
+```
+YÊU CẦU:
+Inforgraphic chuyên nghiệp, nhiều hình ảnh, dễ hiểu, dễ nắm bắt thông tin, đặc biệt là người dân, màu sắc trang nhã, lịch sự.
