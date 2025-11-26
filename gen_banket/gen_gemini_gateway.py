@@ -14,46 +14,21 @@ from PIL import Image
 from typing import List, Optional, Literal
 from dotenv import load_dotenv
 from datasets import load_dataset
+from classify import classify_image
+import base64
 
 load_dotenv()
 OPEN_API_KEY = "AIzaSyAYl_wQM8yMHUL-jZg2zuiq-XwmyA88Ye0"
 # --- Cấu hình ---
 client = OpenAI(
-  api_key=OPEN_API_KEY,
-  base_url="https://api.thucchien.ai"
+    api_key='AIzaSyByc7YCgxy-ri15xNMOIuhalCGSqMcpHU0',
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
 )
 
 # Schema for OpenAI structured output
 SCHEMA = {
     "type": "object",
     "properties": {
-        "Môn học": {
-            "type": "string",
-            "enum": [
-                "Toán",
-                "Vật lý",
-                "Hóa học",
-                "Sinh học",
-                "Ngữ văn",
-                "Lịch sử",
-                "Địa lý",
-                "Giáo dục công dân",
-                "Tiếng Anh",
-                "Tin học",
-                "Công nghệ",
-                "Giáo dục thể chất",
-                "Âm nhạc",
-                "Mỹ thuật"
-            ]
-        },
-        "Độ khó": {
-            "type": "string",
-            "enum": [
-                "easy",
-                "medium",
-                "hard"
-            ]
-        },
         "Trả lời câu hỏi": {
             "type": "object",
             "properties": {
@@ -334,8 +309,6 @@ SCHEMA = {
         }
     },
     "required": [
-        "Môn học",
-        "Độ khó",
         "Trả lời câu hỏi",
         "Sửa lỗi sai",
         "Gợi mở ý tưởng",
@@ -350,6 +323,94 @@ SCHEMA = {
         "Sử dụng công cụ"
     ]
 }
+from pydantic import BaseModel, Field
+from typing import Literal, List, Optional
+
+class TraLoiCauHoi(BaseModel):
+    context_for_question: Optional[str] = None
+    question: str
+    answer: str
+
+class SuaLoiSai(BaseModel):
+    context_for_question: str
+    question: str
+    answer: str
+
+class GoiMoYTuong(BaseModel):
+    context_for_question: Optional[str] = None
+    question: str
+    answer: str
+
+class HocTapCaNhanHoa(BaseModel):
+    context_for_question: Optional[str] = None
+    question: str
+    answer: str
+
+class HoTroTamLyCamXuc(BaseModel):
+    question: str
+    answer: str
+
+class TaoBoCauHoi(BaseModel):
+    context_for_question: Optional[str] = None
+    question: str
+    answer: str
+
+class ChamDiemTuDong(BaseModel):
+    context_for_question: Optional[str] = None
+    question: str
+    answer: str
+
+class TaoTaiLieuGiangDay(BaseModel):
+    context_for_question: Optional[str] = None
+    question: str
+    answer: str
+
+class TaoNoiDungCaNhanHoa(BaseModel):
+    context_for_question: Optional[str] = None
+    question: str
+    answer: str
+
+class HocTapTuongTac(BaseModel):
+    context_for_question: Optional[str] = None
+    conversations: List[dict[str, str]]  # Assuming simple dict for question-answer pairs
+
+class TuVanAnToan(BaseModel):
+    context_for_question: Optional[str] = None
+    question: str
+    answer: str
+
+class ToolItem(BaseModel):
+    name: str
+    parameters: List[str]
+
+class ModelDecisionArguments(BaseModel):
+    input_argument: List[str]
+
+class ModelDecision(BaseModel):
+    selected_tool: str
+    arguments: ModelDecisionArguments
+
+class SuDungCongCu(BaseModel):
+    context_for_question: str
+    all_tools_available_suggest_more_than_2: List[ToolItem] = Field(alias="all tools available (suggest more than 2)")
+    user_query: str
+    model_decision: ModelDecision
+    tool_response: str
+    assistant_final_answer: str
+
+class ResponseSchema(BaseModel):
+    tra_loi_cau_hoi: TraLoiCauHoi = Field(..., alias="Trả lời câu hỏi")
+    sua_loi_sai: SuaLoiSai = Field(..., alias="Sửa lỗi sai")
+    goi_mo_y_tuong: GoiMoYTuong = Field(..., alias="Gợi mở ý tưởng")
+    hoc_tap_ca_nhan_hoa: HocTapCaNhanHoa = Field(..., alias="Học tập cá nhân hóa")
+    ho_tro_tam_ly_cam_xuc: HoTroTamLyCamXuc = Field(..., alias="Hỗ trợ tâm lý cảm xúc")
+    tao_bo_cau_hoi: TaoBoCauHoi = Field(..., alias="Tạo bộ câu hỏi")
+    cham_diem_tu_dong: ChamDiemTuDong = Field(..., alias="Chấm điểm tự động")
+    tao_tai_lieu_giang_day: TaoTaiLieuGiangDay = Field(..., alias="Tạo tài liệu giảng dạy")
+    tao_noi_dung_ca_nhan_hoa: TaoNoiDungCaNhanHoa = Field(..., alias="Tạo nội dung cá nhân hóa")
+    hoc_tap_tuong_tac: HocTapTuongTac = Field(..., alias="Học tập tương tác")
+    tu_van_an_toan: TuVanAnToan = Field(..., alias="Tư vấn an toàn")
+    su_dung_cong_cu: SuDungCongCu = Field(..., alias="Sử dụng công cụ")
 
 PROMPT = """Đầu tiên, xác định môn học và độ khó của hình ảnh:
 - Môn học: Xác định môn học phù hợp nhất từ danh sách (Toán, Vật lí, Hóa học, Sinh học, Ngữ văn, Lịch sử, Địa lí, Giáo dục công dân, Tiếng Anh, Tin học, Công nghệ, Giáo dục thể chất, Âm nhạc, Mỹ thuật)
@@ -623,54 +684,47 @@ Sau đó, tạo cặp Q-A text-only với mỗi task dựa trên hình ảnh, th
 - Ví dụ sai: Đoạn văn (1) trong hình
 - Ví dụ đúng: Đoạn văn (1) bao gồm: "Quê nội của em đẹp bởi có con sông chảy qua làng. Quân năm cần mẫn, dòng sông chở nặng phù sa bồi đắp cho ruộng lúa. Buổi sớm tinh mơ, dòng nước mờ mờ phẳng lặng chảy. Giữa trưa, mặt sông nhấp nhô ánh bạc lẫn màu xanh nước biếc."""
 
-IMAGE_FOLDER = Path("./images")
-OUTPUT_FOLDER = Path("./labels_stream_2")
-
+PROMPT_1
+PROMPT_2
+PROMPT_3 
+IMAGE_FOLDER = Path("../VietDocVQA")
+OUTPUT_FOLDER = Path("../annotations/labels_train_2_5")
 MAX_RETRIES = 5
-
 # Check existing images first
 existing_images = [p for p in IMAGE_FOLDER.glob('*') if p.suffix.lower() in ('.png', '.jpg', '.jpeg', '.webp')]
 existing_count = len(existing_images)
-max_download = 500
-
+max_download = 1500
 print(f"Found {existing_count} existing images in {IMAGE_FOLDER}")
-
 if existing_count >= max_download:
     print(f"Already have {existing_count} images (>= {max_download}). Skipping download.")
 else:
     # Download remaining images from Hugging Face dataset
     images_to_download = max_download - existing_count
     print(f"Need to download {images_to_download} more images to reach {max_download} total.")
-    
+   
     # Load dataset using streaming mode
     dataset = load_dataset("5CD-AI/Viet-Doc-VQA", split="train", streaming=True)
     iterator = iter(dataset)
-    
-    count = existing_count  # Start counting from existing images
-    
+   
+    count = existing_count # Start counting from existing images
+   
     while count < max_download:
         try:
-            item = next(iterator)     # safely get next sample
+            item = next(iterator) # safely get next sample
         except StopIteration:
             print(f"Dataset finished before reaching {max_download} images. Total images: {count}")
             break
-
         image = item["image"]
         image_path = IMAGE_FOLDER / f"image_{count}.png"
         image.save(image_path)
-
         count += 1
         print(f"Downloaded image {count}/{max_download}")
-
     print(f"Download complete. Total images: {count}")
-
 print("Done.")
-
 # Check for both JSON (completed) and TXT (skipped) files
 processed_json_stems = {p.stem.replace('_q', '') for p in OUTPUT_FOLDER.glob('*.json')}
 processed_skip_stems = {p.stem.replace('_q_skip', '') for p in OUTPUT_FOLDER.glob('*_q_skip.txt')}
-processed_stems = processed_json_stems | processed_skip_stems  # Union of both sets
-
+processed_stems = processed_json_stems | processed_skip_stems # Union of both sets
 all_images = [p for p in IMAGE_FOLDER.glob('*') if p.suffix.lower() in ('.png', '.jpg', '.jpeg', '.webp')]
 total_images = len(all_images)
 images_to_process = all_images[:500] # Take only the first 500 images
@@ -678,168 +732,96 @@ print(f"Tổng số ảnh trong thư mục: {total_images}. Số ảnh sẽ xử
 print(f"Đã xử lý (JSON): {len(processed_json_stems)}, Đã bỏ qua (TXT): {len(processed_skip_stems)}")
 print(f"Tổng đã xử lý: {len(processed_stems)}")
 image_queue = [p for p in images_to_process if p.stem not in processed_stems]
-
 lock = threading.Lock()
 retry_counts = {}
 
-def call_openai_and_save(client, prompt_text, img_base64, output_path, thread_name):
-    """Hàm con để gọi OpenAI API với early detection cho 'easy'."""
+def call_openai_and_save(client, prompt_text, img_base64, mime_type, output_path, thread_name):
+    """Simplified non-streaming call to OpenAI API (Gemini). No early detection."""
     print(f"⏳ [{thread_name}] Đang tạo cặp Q&A cho: {output_path.name}")
-
-    # Create cancellation mechanism
-    cancel_event = threading.Event()
-    result_queue = queue.Queue()
-    
-    def stream_reader():
-        """Function to read stream in separate thread"""
-        try:
-            response = client.chat.completions.create(
-                model="gpt-4o",  # Use vision model
-                messages=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text": prompt_text},
-                            {
-                                "type": "image_url",
-                                "image_url": {"url": f"data:image/png;base64,{img_base64}"}
-                            }
-                        ]
-                    }
-                ],
-                response_format={"type": "json_schema", "json_schema": {"name": "response", "schema": SCHEMA}},
-                stream=True,
-                temperature=1.1,
-            )
-            full_text = ""
-            for chunk in response:
-                if cancel_event.is_set():
-                    print(f"\n🛑 [{thread_name}] Stream cancelled by event.")
-                    result_queue.put(("CANCELLED", None))
-                    return
-                if chunk.choices[0].delta.content:
-                    current_chunk = chunk.choices[0].delta.content
-                    full_text += current_chunk
-                    print(current_chunk, end='', flush=True)
-                    # Immediate detection logic
-                    text_lower = full_text.lower()
-                    if ('"độ khó"' in text_lower and '"easy"' in text_lower) or \
-                       ('"do_kho"' in text_lower and '"easy"' in text_lower):
-                        print(f"\n⚡ [{thread_name}] IMMEDIATE DETECTION: 'easy' found, stopping stream!")
-                        cancel_event.set()
-                        result_queue.put(("EASY_DETECTED", full_text))
-                        return
-
-            # If the loop completes without early termination
-            result_queue.put(("SUCCESS", full_text))
-
-        except Exception as e:
-            print(f"\n❌ [{thread_name}] Stream generation error: {e}")
-            result_queue.put(("ERROR", str(e)))
-
-    # Start the stream reader thread
-    stream_thread = threading.Thread(target=stream_reader, daemon=True)
-    stream_thread.start()
-
-    # Wait indefinitely for a result from the queue
     try:
-        status, data = result_queue.get(timeout=None) # Wait forever
-    except queue.Empty:
-        # This is highly unlikely with no timeout but included for safety
-        print(f"\n❓ [{thread_name}] Queue remained empty unexpectedly. Cancelling.")
-        cancel_event.set()
+        response = client.beta.chat.completions.parse(
+            model="gemini-2.5-flash",
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": prompt_text},
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": f"data:{mime_type};base64,{img_base64}"}
+                        }
+                    ]
+                }
+            ],
+            response_format=ResponseSchema,
+            temperature=1.1,
+        )
+        full_text = response.choices[0].message.parsed
+        print(f"\n✅ [{thread_name}] Response completed.")
+        result_json = full_text.model_dump()
+        # No early detection or difficulty check here, as classification already filtered
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(result_json, f, ensure_ascii=False, indent=4)
+        print(f"💾 [{thread_name}] Successfully saved: {output_path.name}")
+        return result_json
+    except json.JSONDecodeError:
+        print(f"❌ [{thread_name}] Failed to parse JSON from the response.")
+        error_txt_path = OUTPUT_FOLDER / f"{output_path.stem}_json_error.txt"
+        with open(error_txt_path, "w", encoding="utf-8") as f:
+            f.write(full_text)
+        print(f"💾 [{thread_name}] Saved malformed response to: {error_txt_path.name}")
+        return None
+    except Exception as e:
+        print(f"❌ [{thread_name}] Error during generation: {e}")
         return None
 
-    # Process the result based on the status
-    if status == "EASY_DETECTED":
-        skip_path = OUTPUT_FOLDER / f"{output_path.stem}_skip.txt"
-        skip_content = (f"Skipped: Difficulty 'easy' detected during streaming.\n"
-                        f"Original file: {output_path.name}\n"
-                        f"Timestamp: {time.strftime('%Y-%m-%d %H:%M:%S')}\n"
-                        f"Partial response captured:\n---\n{data}\n---")
-        with open(skip_path, "w", encoding="utf-8") as f:
-            f.write(skip_content)
-        print(f"\n⚡ [{thread_name}] Early termination successful. Created skip file: {skip_path.name}")
-        return None
-
-    elif status == "CANCELLED":
-        print(f"\n🛑 [{thread_name}] Stream was cancelled.")
-        return None
-
-    elif status == "ERROR":
-        print(f"\n❌ [{thread_name}] An error occurred in the stream: {data}")
-        # Optionally save the error for debugging
-        error_path = OUTPUT_FOLDER / f"{output_path.stem}_stream_error.txt"
-        with open(error_path, "w", encoding="utf-8") as f:
-            f.write(f"Stream failed for {output_path.name} with error:\n{data}")
-        return None
-
-    elif status == "SUCCESS":
-        print(f"\n✅ [{thread_name}] Stream completed. Parsing final JSON...")
-        full_text = data
-        try:
-            result_json = json.loads(full_text)
-
-            # Final check in the complete JSON, just in case
-            difficulty = result_json.get("Độ khó", "")
-            if difficulty == "easy":
-                skip_path = OUTPUT_FOLDER / f"{output_path.stem}_skip.txt"
-                skip_content = (f"Skipped: Difficulty 'easy' detected in final JSON.\n"
-                                f"Original file: {output_path.name}\n"
-                                f"Timestamp: {time.strftime('%Y-%m-%d %H:%M:%S')}")
-                with open(skip_path, "w", encoding="utf-8") as f:
-                    f.write(skip_content)
-                print(f"⚡ [{thread_name}] Detected 'easy' in final JSON. Created skip file: {skip_path.name}")
-                return None
-
-            # If everything is good, save the JSON file
-            with open(output_path, "w", encoding="utf-8") as f:
-                json.dump(result_json, f, ensure_ascii=False, indent=4)
-            print(f"💾 [{thread_name}] Successfully saved: {output_path.name}")
-            return result_json
-
-        except json.JSONDecodeError:
-            print(f"❌ [{thread_name}] Failed to parse JSON from the final response.")
-            error_txt_path = OUTPUT_FOLDER / f"{output_path.stem}_json_error.txt"
-            with open(error_txt_path, "w", encoding="utf-8") as f:
-                f.write(full_text)
-            print(f"💾 [{thread_name}] Saved malformed response to: {error_txt_path.name}")
-            return None
-        except Exception as e:
-            print(f"❌ [{thread_name}] An unexpected error occurred during JSON processing: {e}")
-            return None
-
-    else:
-        print(f"\n❓ [{thread_name}] Received unknown status from queue: {status}")
-        return None
-
-
-def process_image_task(api_key, thread_name):
-    """Hàm xử lý cho mỗi luồng với streaming mode và early stopping."""
+def process_image_task(thread_name):
+    """Hàm xử lý cho mỗi luồng. Classify first, skip easy, then generate without early detection."""
     print(f"🟢 [{thread_name}] Bắt đầu làm việc...")
-    client = OpenAI(api_key=api_key, base_url="https://api.thucchien.ai")
-    
+    # Use the global Gemini client
+    global client
+   
     while True:
         with lock:
             if not image_queue:
                 break
             image_path = image_queue.pop(0)
-
+        # Classify the image first
+        try:
+            classification = classify_image(image_path)
+            # Save classification to json
+            classify_dir = Path("/home/team_cv/tdkien/20_Vuon_Minh/annotations/classify")
+            classify_dir.mkdir(parents=True, exist_ok=True)
+            classify_file = classify_dir / f"{image_path.stem}_classify.json"
+            with open(classify_file, "w", encoding="utf-8") as f:
+                json.dump(classification.model_dump(), f, ensure_ascii=False, indent=4)
+            print(f"📋 [{thread_name}] Classified {image_path.name}: {classification.mon_hoc} - {classification.do_kho}")
+           
+            if classification.do_kho == 'easy':
+                skip_path = OUTPUT_FOLDER / f"{image_path.stem}_q_skip.txt"
+                skip_content = f"Skipped: Classified as easy\nMon hoc: {classification.mon_hoc}\nDo kho: {classification.do_kho}\nTimestamp: {time.strftime('%Y-%m-%d %H:%M:%S')}"
+                with open(skip_path, "w", encoding="utf-8") as f:
+                    f.write(skip_content)
+                print(f"⏭️ [{thread_name}] Skipped {image_path.name} due to easy difficulty")
+                continue
+            # Proceed to generate Q&A only for non-easy
+        except Exception as e:
+            print(f"❌ [{thread_name}] Error classifying {image_path.name}: {e}")
+            continue
         try:
             with open(image_path, "rb") as img_file:
                 img_data = img_file.read()
-            import base64
             img_base64 = base64.b64encode(img_data).decode('utf-8')
+            mime_types = {'.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp'}
+            mime_type = mime_types.get(image_path.suffix.lower(), 'image/jpeg')
             output_path = OUTPUT_FOLDER / f"{image_path.stem}_q.json"
-            
-            result = call_openai_and_save(client, PROMPT, img_base64, output_path, thread_name)
-            
-            # If result is None, it means we skipped due to "easy" difficulty
+           
+            result = call_openai_and_save(client, PROMPT, img_base64, mime_type, output_path, thread_name)
+           
             if result is None:
-                print(f"⏭️ [{thread_name}] Chuyển sang ảnh tiếp theo do độ khó 'easy'")
-
+                print(f"⚠️ [{thread_name}] Generation failed for {image_path.name}, will retry if possible")
         except Exception as e:
-            print(f"❌ [{thread_name}] [{api_key}] Lỗi với ảnh {image_path.name}: {e}")
+            print(f"❌ [{thread_name}] Error processing {image_path.name}: {e}")
             with lock:
                 current_retries = retry_counts.get(image_path, 0)
                 if current_retries < MAX_RETRIES:
@@ -848,11 +830,9 @@ def process_image_task(api_key, thread_name):
                     print(f"🔄 [{thread_name}] Đã đưa {image_path.name} vào hàng đợi để thử lại (lần {current_retries + 1}/{MAX_RETRIES}).")
                 else:
                     print(f"⚠️ [{thread_name}] Bỏ qua {image_path.name} sau {MAX_RETRIES} lần thử không thành công.")
-        
-        time.sleep(8) 
-
+       
+        time.sleep(8)
     print(f"🔴 [{thread_name}] Đã hoàn thành công việc.")
-
 
 def signal_handler(sig, frame):
     """Xử lý tín hiệu ngắt (Ctrl+C)"""
@@ -862,29 +842,23 @@ def signal_handler(sig, frame):
 if __name__ == "__main__":
     # Đăng ký signal handler
     signal.signal(signal.SIGINT, signal_handler)
-    
-
-    if not OPEN_API_KEY or OPEN_API_KEY == "<your_api_key>":
-        print("🛑 LỖI: Vui lòng cung cấp API Key hợp lệ trong biến `OPENAI_API_KEY`.")
-    elif not all_images:
+   
+    if not all_images:
         print(f"📂 Thư mục '{IMAGE_FOLDER}' trống. Vui lòng thêm ảnh vào để xử lý.")
     elif not image_queue:
         print("🎉 Tất cả các ảnh đã được xử lý trước đó.")
     else:
-        print(f"🚀 Bắt đầu xử lý {len(image_queue)} ảnh với streaming mode")
-        print(f"⚡ IMMEDIATE CANCELLATION: Dừng ngay khi phát hiện độ khó 'easy'")
-        print(f"⏰ NO TIMEOUT: Cho phép response dài không giới hạn thời gian")
+        print(f"🚀 Bắt đầu xử lý {len(image_queue)} ảnh")
+        print(f"📋 Classify trước, skip easy, generate Q&A for medium/hard without early detection")
         print(f"🛑 Nhấn Ctrl+C để dừng gracefully")
-        print(f"🔥 Stream sẽ bị cancel NGAY LẬP TỨC khi phát hiện 'easy' - không cần đợi response hoàn thành!")
-        
+       
         start_time = time.time()
-        
-        with ThreadPoolExecutor(max_workers=1) as executor:  # Single thread for simplicity
+       
+        with ThreadPoolExecutor(max_workers=1) as executor:
             futures = [
-                executor.submit(process_image_task, OPEN_API_KEY, "Thread-1") 
+                executor.submit(process_image_task, "Thread-1")
             ]
-            
-            # Wait for all threads with better error handling
+           
             for i, future in enumerate(futures):
                 try:
                     future.result()
@@ -893,17 +867,16 @@ if __name__ == "__main__":
                     break
                 except Exception as e:
                     print(f"❌ Lỗi trong luồng {i+1}: {e}")
-        
+       
         end_time = time.time()
         elapsed = end_time - start_time
-        
-        # Final statistics
+       
         final_json_count = len([p for p in OUTPUT_FOLDER.glob('*.json')])
         final_skip_count = len([p for p in OUTPUT_FOLDER.glob('*_q_skip.txt')])
-        
+       
         print(f"\n✨ Hoàn thành sau {elapsed:.1f} giây!")
         print(f"📁 Kết quả được lưu trong: {OUTPUT_FOLDER}")
         print(f"📊 Thống kê kết quả:")
-        print(f"   ✅ Đã xử lý thành công: {final_json_count} file JSON")
-        print(f"   ⏭️ Đã bỏ qua (easy): {final_skip_count} file TXT")
-        print(f"   📈 Tổng cộng: {final_json_count + final_skip_count} file")
+        print(f" ✅ Đã xử lý thành công: {final_json_count} file JSON")
+        print(f" ⏭️ Đã bỏ qua (easy): {final_skip_count} file TXT")
+        print(f" 📈 Tổng cộng: {final_json_count + final_skip_count} file")
